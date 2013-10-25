@@ -1,2 +1,7 @@
 .idea
 .vagrant
+vendor
+composer.lock
+web/bundles/
+app/cache/*
+app/logs/*
