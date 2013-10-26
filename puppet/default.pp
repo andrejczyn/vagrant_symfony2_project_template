@@ -6,5 +6,5 @@ include apache2
 include php
 
 class{"symfony_application":
-  name => "stachu"
+  name => "application"
 }
