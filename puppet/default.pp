@@ -1,20 +1,10 @@
-include apache
-
-$application = 'app'
-$user = 'www-data'
-$group = 'www-data'
-
-file{"/home/$user/application":
-  ensure => 'directory'
+exec { "apt-get update":
+    command => "/usr/bin/apt-get update"
 }
 
-file{"/var/www/$application":
-  ensure => link,
-  target => "/home/$user/application/web"
-}
+include apache2
+include php
 
-apache::vhost {"$application.local":
-  port    => '80',
-  docroot => "/var/www/$application",
+class{"symfony_application":
+  name => "stachu"
 }
-
