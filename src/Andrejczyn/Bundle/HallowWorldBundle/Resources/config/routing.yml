@@ -1,0 +1,3 @@
+andrejczyn_hellow_world_homepage:
+    pattern:  /
+    defaults: { _controller: AndrejczynHallowWorldBundle:Default:index }

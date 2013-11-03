@@ -8,7 +8,11 @@ Vagrant.configure("2") do |config|
   else
     config.vm.synced_folder ".", "/home/www-data/application/"    
   end
-  
+
+  config.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", 1024]
+  end
+
   config.vm.network :forwarded_port, host: 4567, guest: 80
   config.vm.provision "puppet" do |puppet|
 	puppet.manifests_path = "puppet"

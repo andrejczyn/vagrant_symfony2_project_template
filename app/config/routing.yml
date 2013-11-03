@@ -1,0 +1,4 @@
+andrejczyn_hellow_world:
+    resource: "@AndrejczynHallowWorldBundle/Resources/config/routing.yml"
+    prefix:   /
+
