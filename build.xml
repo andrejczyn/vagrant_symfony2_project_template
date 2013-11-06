@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Template" basedir="." default="build">
+  <!-- Properties -->
+    <property name="dir.app" value="${project.basedir}/app" />
+    <property name="dir.bin" value="${project.basedir}/bin" />
+    <property name="dir.cache" value="${dir.app}/cache" />
+    <property name="dir.logs" value="${dir.app}/logs" />
+    <property name="div.vendor" value="${project.basedir}/vendor"/>
+    <property name="dir.src" value="${project.basedir}/src" />
+    <property name="dir.build" value="${project.basedir}/build" />
+
+    <property file="./build/properties/default.properties" />
+
+    <if>
+        <isset property="env"/>
+        <then>
+            <if>
+                <and>
+                    <not>
+                        <equals arg1="${env}" arg2="dev"/>
+                    </not>
+
+                    <not>
+                        <equals arg1="${env}" arg2="test"/>
+                    </not>
+
+                    <not>
+                        <equals arg1="${env}" arg2="prod"/>
+                    </not>
+                </and>
+                <then>
+                    <fail msg="Invalid environment: ${env}"/>
+                </then>
+            </if>
+        </then>
+        <else>
+            <property name="env" value="dev"/>
+        </else>
+    </if>
+
+    <target name="build:create-directories">
+        <mkdir dir="${dir.cache}" mode="0777"/>
+        <mkdir dir="${dir.logs}" mode="0777" />
+    </target>
+
+    <target name="build:composer:install">
+        <exec dir="${project.basedir}" executable="./composer.phar" checkreturn="true" logoutput="true">
+            <arg value="install" />
+        </exec>
+    </target>
+
+    <target name="build:cache:clear">
+        <exec dir="${dir.app}" executable="./console" checkreturn="true" logoutput="true">
+            <arg value="cache:clear" />
+            <arg value="--env=${env}"/>
+        </exec>
+    </target>
+
+    <target name="test:cs">
+        <exec dir="${dir.bin}" executable="./phpcs" checkreturn="true" logoutput="true">
+            <arg value="--standard=${div.vendor}/instaclick/symfony2-coding-standard/Symfony2" />
+            <arg value="${dir.src}"/>
+        </exec>
+    </target>
+
+    <target name="test" depends="test:cs">
+
+    </target>
+
+    <target name="build">
+        <phingcall target="build:create-directories"/>
+        <phingcall target="build:composer:install"/>
+        <phingcall target="build:cache:clear"/>
+        <phingcall target="test"/>
+    </target>
+</project>

@@ -5,3 +5,5 @@ composer.lock
 web/bundles/
 app/cache/*
 app/logs/*
+bin/phing
+bin/phpcs
