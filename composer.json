@@ -19,7 +19,9 @@
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
-        "phing/phing": "2.6.1",
+        "phing/phing": "2.6.1"
+    },
+    "require-dev": {
         "instaclick/php-code-sniffer": "1.4.2",
         "instaclick/symfony2-coding-standard": "dev-remaster"
     },
