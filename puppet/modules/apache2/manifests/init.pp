@@ -1,8 +1,9 @@
 class apache2 {
-  notify {"apache2":}
+  include common
 
   package {"apache2":
-    ensure => installed
+    ensure => installed,
+    require => Exec["apt-get update"]
   }
 
   service {"apache2":
